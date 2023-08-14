@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
+    borderWidth: 1,
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
