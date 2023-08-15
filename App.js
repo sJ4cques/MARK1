@@ -182,6 +182,3 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
-// UNA VAINA LOCA
-//a ver como se sube
