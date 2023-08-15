@@ -183,4 +183,5 @@ const styles = StyleSheet.create({
   },
 });
 
-//jeims
+// UNA VAINA LOCA
+//a ver como se sube
