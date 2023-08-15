@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   deleteButton: {
-    color: 'skyblue',
+    color: 'red',
     fontWeight: 'bold',
     fontSize: 18,
     marginLeft: 10,
