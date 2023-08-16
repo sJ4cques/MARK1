@@ -22,12 +22,7 @@ export default function Add() {
       emoji: emojiObject.emoji,
     });
   };
-  /* example emojiObject = { 
-          "emoji": "❤️",
-          "name": "red heart",
-          "slug": "red_heart",
-        }
-      */
+  
 
   const onSend = async () => {
     const docRef = await addDoc(collection(database, "products"), newItem);
