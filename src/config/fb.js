@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { Constants } from "expo-constants";
+import  Constants from "expo-constants";
 import { getFirestore } from "firebase/firestore";
 
 
