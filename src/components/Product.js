@@ -3,13 +3,14 @@ import * as RN from 'react-native';
 import { database } from '../config/fb';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { AntDesign } from '@expo/vector-icons';
+import { Share } from 'react-native';
 
 export default function Product({
     id,
-    emoji,
     name,
     price,
     isSold,
+    link
 }) {
 
     const onDelete = () => {
@@ -17,35 +18,47 @@ export default function Product({
         deleteDoc(docRef);
     }
 
-    const onEdit = () => {
-        const docRef = doc(database, 'products', id);
-        updateDoc(docRef, {
-            isSold: true,
-        });
-    }
+    
+    const onShare = async () => {
+        try {
+          const result = await Share.share({
+            url:
+              'https://vivanlaslolislegales.com'
+          });
+
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+          }
+        } catch  {
+          Alert.alert(error.message);
+        }
+        
+      }
+
+
 
     return(
         <RN.View>
             <RN.View style={styles.productContainer}>
                 <RN.View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <RN.Text style={styles.emoji}>{emoji}</RN.Text>
                     <AntDesign onPress={onDelete} name="delete" size={24} color="black" />
                 </RN.View>
                 <RN.Text style={styles.name}>{name}</RN.Text>
-                <RN.Text style={styles.price}>Q{price}</RN.Text>
-                {isSold ? (
-                    <RN.TouchableOpacity 
-                    style={[styles.button, {backgroundColor: 'gray'}]}>
-                    <RN.Text style={styles.buttonText}>Vendido</RN.Text>
-                </RN.TouchableOpacity>
-                )
-                : (
-                    <RN.TouchableOpacity 
-                    onPress={onEdit}
+                <RN.Text style={styles.price}>{price}</RN.Text>
+                
+                    
+                <RN.TouchableOpacity 
+                    onPress={onShare}
                     style={styles.button}>
-                    <RN.Text style={styles.buttonText}>Comprar</RN.Text>
+                    <RN.Text style={styles.buttonText}>Compartir</RN.Text>
                 </RN.TouchableOpacity>
-                )}
+                
                 
             </RN.View>
         </RN.View>

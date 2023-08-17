@@ -26,11 +26,11 @@ export default function Home() {
         setProducts(
           querySnapshot.docs.map((doc) => ({
             id: doc.id,
-            emoji: doc.data().emoji,
             name: doc.data().name,
             price: doc.data().price,
             isSold: doc.data().isSold,
             createdAt: doc.data().createdAt,
+            link: doc.data().link
           }))
         );
       });
@@ -40,7 +40,7 @@ export default function Home() {
     return (
       <RN.View style={styles.container}>
         <RN.ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-          <RN.Text style={styles.title}>Productos</RN.Text>
+          <RN.Text style={styles.title}>Notas</RN.Text>
           {products.map((product) => (
             <Product key={product.id} {...product} />
           ))}

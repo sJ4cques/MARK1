@@ -3,25 +3,18 @@ import * as RN from "react-native";
 import { collection, addDoc } from "firebase/firestore";
 import { database } from '../config/fb';
 import { useNavigation } from "@react-navigation/native";
-import EmojiPicker from "rn-emoji-keyboard";
 
 export default function Add() {
   const navigation = useNavigation();
   const [isOpen, setIsOpen] = React.useState(false);
   const [newItem, setNewItem] = React.useState({
-    emoji: "📷",
     name: "",
     price: 0,
     isSold: false,
     createdAt: new Date(),
+    link: ""
   });
 
-  const handlePick = (emojiObject) => {
-    setNewItem({
-      ...newItem,
-      emoji: emojiObject.emoji,
-    });
-  };
   
 
   const onSend = async () => {
@@ -31,24 +24,17 @@ export default function Add() {
 
   return (
     <RN.View style={styles.container}>
-      <RN.Text style={styles.title}>Crear Nuevo Producto</RN.Text>
-      <RN.Text onPress={() => setIsOpen(true)} style={styles.emoji}>
-        {newItem.emoji}
-      </RN.Text>
-      <EmojiPicker
-        onEmojiSelected={handlePick}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
+      <RN.Text style={styles.title}>Crear Nueva Nota Rápida</RN.Text>
+      
       <RN.TextInput
         onChangeText={(text) => setNewItem({ ...newItem, name: text })}
         style={styles.inputContainer}
-        placeholder="Nombre del Producto"
+        placeholder="Titulo"
       />
       <RN.TextInput
         onChangeText={(text) => setNewItem({ ...newItem, price: text })}
         style={styles.inputContainer}
-        placeholder="Q Precio"
+        placeholder="Descripción"
       />
       <RN.Button title="Crear" onPress={onSend} />
     </RN.View>
