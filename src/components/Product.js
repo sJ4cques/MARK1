@@ -4,6 +4,7 @@ import { database } from '../config/fb';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { AntDesign } from '@expo/vector-icons';
 import { Share } from 'react-native';
+import { useNavigation } from "@react-navigation/native"
 
 export default function Product({
     id,
@@ -12,6 +13,8 @@ export default function Product({
     isSold,
     link
 }) {
+
+    const navigation = useNavigation();
 
     const onDelete = () => {
         const docRef = doc(database, 'products', id);
@@ -41,7 +44,7 @@ export default function Product({
         
       }
 
-
+      
 
     return(
         <RN.View>
@@ -49,16 +52,23 @@ export default function Product({
                 <RN.View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                     <AntDesign onPress={onDelete} name="delete" size={24} color="black" />
                 </RN.View>
+
                 <RN.Text style={styles.name}>{name}</RN.Text>
                 <RN.Text style={styles.price}>{price}</RN.Text>
                 
-                    
                 <RN.TouchableOpacity 
                     onPress={onShare}
                     style={styles.button}>
                     <RN.Text style={styles.buttonText}>Compartir</RN.Text>
                 </RN.TouchableOpacity>
                 
+                <RN.TouchableOpacity  
+                    onPress={() => navigation.navigate("NoteView")}
+                    style={styles.button2}
+                >
+                    
+                    <RN.Text style={styles.buttonText}>Ver</RN.Text>
+                </RN.TouchableOpacity>
                 
             </RN.View>
         </RN.View>
@@ -96,4 +106,11 @@ const styles = RN.StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
     },
+    button2:{
+        backgroundColor: '#0FA5E9',
+        padding: 10,
+        marginVertical: 6,
+        borderRadius: 8,
+        alignItems: 'center'
+    }
 });
