@@ -19,7 +19,7 @@ export default function Home() {
   
     React.useEffect(() => {
       const collectionRef = collection(database, "products");
-      const q = query(collectionRef, orderBy("createdAt", "desc"));
+      const q = query(collectionRef, where("name", "TECLADOS"), orderBy("createdAt", "desc"));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
        
         console.log("querySnapshot unsusbscribe");

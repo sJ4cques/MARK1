@@ -1,18 +1,31 @@
 import * as React from "react";
 import * as RN from "react-native";
-import { getFirestore, doc, getDoc } from "firebase/firestore"
+import { getFirestore, doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore"
 import { database } from "../config/fb";
-
 
 
 export default function NoteView () {
     
 
-    const Info = async () => {
-        const docRef = doc(database, "products", "H9H6fyRN6RCcQuO7Q1CC" )
-        const docSnap = await getDoc(docRef)
-        console.log(docSnap.data())
-    }
+    React.useEffect(() => {
+        const collectionRef = collection(database, "products");
+        const q = query(collectionRef, orderBy("createdAt", "desc"));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+         
+          console.log("querySnapshot unsusbscribe");
+          setProducts(
+            querySnapshot.docs.map((doc) => ({
+              id: doc.id,
+              name: doc.data().name,
+              price: doc.data().price,
+              isSold: doc.data().isSold,
+              createdAt: doc.data().createdAt,
+              link: doc.data().link
+            }))
+          );
+        });
+        return unsubscribe; 
+      }, []);
 
     
     
@@ -24,6 +37,7 @@ export default function NoteView () {
             <RN.Button title="Información" onPress={Info} /> 
         </RN.View>
     )
+
 }
 
 const styles = RN.StyleSheet.create({
