@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import * as RN from 'react-native'
 import { useNavigation } from "@react-navigation/native"
 import { database } from "../config/fb"
@@ -6,23 +6,23 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
 import Product from "../components/Product"
 
 export default function Home() {
-    const [products, setProducts] = React.useState([]);
-    const navigation = useNavigation();
+    const [products, setProducts] = React.useState([])
+    const navigation = useNavigation()
   
     React.useLayoutEffect(() => {
       navigation.setOptions({
         headerRight: () => (
           <RN.Button title="Add" onPress={() => navigation.navigate("Add")} />
-        ),
-      });
-    }, [navigation]);
+        )
+      })
+    }, [navigation])
   
     React.useEffect(() => {
-      const collectionRef = collection(database, "products");
-      const q = query(collectionRef, where("name", "TECLADOS"), orderBy("createdAt", "desc"));
+      const collectionRef = collection(database, "products")
+      const q = query(collectionRef,  orderBy("createdAt", "desc"))
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
        
-        console.log("querySnapshot unsusbscribe");
+        console.log("querySnapshot unsusbscribe")
         setProducts(
           querySnapshot.docs.map((doc) => ({
             id: doc.id,
@@ -32,10 +32,10 @@ export default function Home() {
             createdAt: doc.data().createdAt,
             link: doc.data().link
           }))
-        );
-      });
-      return unsubscribe; 
-    }, []);
+        )
+      })
+      return unsubscribe
+    }, [])
   
     return (
       <RN.View style={styles.container}>
@@ -46,17 +46,17 @@ export default function Home() {
           ))}
         </RN.ScrollView>
       </RN.View>
-    );
+    )
   }
   
   const styles = RN.StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#F5F3F9",
+      backgroundColor: "#F5F3F9"
     },
     title: {
       fontSize: 32,
       fontWeight: "bold",
-      margin: 16,
-    },
-  });
+      margin: 16
+    }
+  })

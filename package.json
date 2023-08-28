@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@expo/webpack-config": "18.0.1",
+    "@expo/webpack-config": "^19.0.0",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
     "dotenv": "^16.3.1",
